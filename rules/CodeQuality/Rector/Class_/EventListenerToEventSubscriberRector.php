@@ -32,6 +32,8 @@ final class EventListenerToEventSubscriberRector extends AbstractRector
      */
     private const string LISTENER_MATCH_REGEX = '#^(.*?)(Listener)?$#';
 
+    private const string AS_EVENT_LISTENER_ATTRIBUTE = SymfonyAttribute::AS_EVENT_LISTENER;
+
     /**
      * @var EventNameToClassAndConstant[]
      */
@@ -171,7 +173,7 @@ CODE_SAMPLE
      */
     private function hasAsListenerAttribute(Class_ $class): bool
     {
-        if ($this->phpAttributeAnalyzer->hasPhpAttribute($class, SymfonyAttribute::AS_EVENT_LISTENER)) {
+        if ($this->phpAttributeAnalyzer->hasPhpAttribute($class, self::AS_EVENT_LISTENER_ATTRIBUTE)) {
             return true;
         }
 
@@ -180,7 +182,7 @@ CODE_SAMPLE
                 continue;
             }
 
-            if ($this->phpAttributeAnalyzer->hasPhpAttribute($classMethod, SymfonyAttribute::AS_EVENT_LISTENER)) {
+            if ($this->phpAttributeAnalyzer->hasPhpAttribute($classMethod, self::AS_EVENT_LISTENER_ATTRIBUTE)) {
                 return true;
             }
         }
